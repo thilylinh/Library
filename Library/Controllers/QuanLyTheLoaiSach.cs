@@ -1,51 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Library.Models;
+﻿using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Library.Controllers
 {
-    public class QuanLyTacGia : Controller
+    public class QuanLyTheLoaiSach : Controller
     {
         private readonly DataContext _dataContext;
-        public QuanLyTacGia(DataContext dataContext)
+
+        public QuanLyTheLoaiSach(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tascGia = await _dataContext.TacGias.ToListAsync();
-            return View(tascGia);
+            var tl = await _dataContext.TheLoais.ToListAsync();
+            return View(tl);
         }
+
         [HttpGet]
         public IActionResult AddNew()
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> AddNew(TacGia tacGia)
+        public async Task<IActionResult> AddNew(TheLoai tl)
         {
-            var tg = _dataContext.TacGias.Where(m => m.Ten.Contains(tacGia.Ten) == true);
+            var tg = _dataContext.TheLoais.Where(m => m.TenTheLoai.Contains(tl.TenTheLoai) == true);
 
             if (tg.Count() > 0)
             {
-                ModelState.AddModelError("", "Đã tồn tại tác giả " + tacGia.Ten + " trong hệ thống!");
+                ModelState.AddModelError("", "Đã tồn tại thể loại " + tl.TenTheLoai + " trong hệ thống!");
                 return View();
             }
 
             if (ModelState.IsValid)
             {
-                _dataContext.Add(tacGia);
+                _dataContext.Add(tl);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -53,22 +55,23 @@ namespace Library.Controllers
             {
                 return NotFound();
             }
-            var tacgia = await _dataContext.TacGias.FirstOrDefaultAsync(s => s.Ma == id);
-            return View(tacgia);
+            var tl = await _dataContext.TheLoais.FirstOrDefaultAsync(s => s.Ma == id);
+            return View(tl);
         }
+
         [HttpPost, ActionName("Edit")]
-        public async Task<IActionResult> EditTacGia(int? id)
+        public async Task<IActionResult> Edittl(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var tacgiaToUpdate = await _dataContext.TacGias.FirstOrDefaultAsync(s => s.Ma == id);
+            var tlToUpdate = await _dataContext.TheLoais.FirstOrDefaultAsync(s => s.Ma == id);
 
-            if (await TryUpdateModelAsync<TacGia>(
-        tacgiaToUpdate,
+            if (await TryUpdateModelAsync<TheLoai>(
+        tlToUpdate,
         "",
-        s => s.Ten, s => s.GhiChu))
+        s => s.TenTheLoai))
             {
                 try
                 {
@@ -82,12 +85,12 @@ namespace Library.Controllers
                         "Làm ơn thử lại! ");
                 }
             }
-            return View(tacgiaToUpdate);
+            return View(tlToUpdate);
         }
 
-        public async Task<IActionResult> Delete(int? id , bool? saveChangesError = false)
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
-            var tg = await _dataContext.TacGias.FindAsync(id);
+            var tg = await _dataContext.TheLoais.FindAsync(id);
             if (tg == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -95,7 +98,7 @@ namespace Library.Controllers
 
             try
             {
-                _dataContext.TacGias.Remove(tg);
+                _dataContext.TheLoais.Remove(tg);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

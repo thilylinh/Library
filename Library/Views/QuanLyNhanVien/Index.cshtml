@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Thông tin nhân viên ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using Library.Models
+@model IEnumerable<NhanVien>
+
+<div>
+    @Html.ActionLink("Thêm mới nhân viên", "AddNew", "QuanLyNhanVien", null, new { @class = "btn btn-success" })
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">Nhân viên</h4>
+            <p class="card-category"> Thông tin về tất cả nhân trong thư viện</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        Mã
+                    </th>
+                    <th>
+                        Tên nhân viên
+                    </th>
+                    <th>
+                        Số điện thoại
+                    </th>
+                    <th>
+                        Tên đăng nhập
+                    </th>
+                    <th>
+                    </th>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                        <tr>
+                            <td class="text-primary">
+                                @Html.DisplayFor(m => i.Ma)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => i.Ten)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => i.SoDienThoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => i.TenDangNhap)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", "QuanLyNhanVien", new { @id = i.Ma }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "Delete", "QuanLyNhanVien", new { @id = i.Ma }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

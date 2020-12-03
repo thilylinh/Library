@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
-    public class QuanLyTacGia : Controller
+    public class QuanLyNhaXuatBan : Controller
     {
         private readonly DataContext _dataContext;
-        public QuanLyTacGia(DataContext dataContext)
+        public QuanLyNhaXuatBan(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tascGia = await _dataContext.TacGias.ToListAsync();
-            return View(tascGia);
+            var nxb = await _dataContext.NhaXuatBans.ToListAsync();
+            return View(nxb);
         }
         [HttpGet]
         public IActionResult AddNew()
@@ -27,19 +27,19 @@ namespace Library.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddNew(TacGia tacGia)
+        public async Task<IActionResult> AddNew(NhaXuatBan nxb)
         {
-            var tg = _dataContext.TacGias.Where(m => m.Ten.Contains(tacGia.Ten) == true);
+            var tg = _dataContext.NhaXuatBans.Where(m => m.Ten.Contains(nxb.Ten) == true);
 
             if (tg.Count() > 0)
             {
-                ModelState.AddModelError("", "Đã tồn tại tác giả " + tacGia.Ten + " trong hệ thống!");
+                ModelState.AddModelError("", "Đã tồn tại nhà xuất bản " + nxb.Ten + " trong hệ thống!");
                 return View();
             }
 
             if (ModelState.IsValid)
             {
-                _dataContext.Add(tacGia);
+                _dataContext.Add(nxb);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -53,22 +53,22 @@ namespace Library.Controllers
             {
                 return NotFound();
             }
-            var tacgia = await _dataContext.TacGias.FirstOrDefaultAsync(s => s.Ma == id);
-            return View(tacgia);
+            var nxb = await _dataContext.NhaXuatBans.FirstOrDefaultAsync(s => s.Ma == id);
+            return View(nxb);
         }
         [HttpPost, ActionName("Edit")]
-        public async Task<IActionResult> EditTacGia(int? id)
+        public async Task<IActionResult> Editnxb(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var tacgiaToUpdate = await _dataContext.TacGias.FirstOrDefaultAsync(s => s.Ma == id);
+            var nxbToUpdate = await _dataContext.NhaXuatBans.FirstOrDefaultAsync(s => s.Ma == id);
 
-            if (await TryUpdateModelAsync<TacGia>(
-        tacgiaToUpdate,
+            if (await TryUpdateModelAsync<NhaXuatBan>(
+        nxbToUpdate,
         "",
-        s => s.Ten, s => s.GhiChu))
+        s => s.Ten, s => s.DiaChi,s=>s.Email))
             {
                 try
                 {
@@ -82,12 +82,12 @@ namespace Library.Controllers
                         "Làm ơn thử lại! ");
                 }
             }
-            return View(tacgiaToUpdate);
+            return View(nxbToUpdate);
         }
 
-        public async Task<IActionResult> Delete(int? id , bool? saveChangesError = false)
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
-            var tg = await _dataContext.TacGias.FindAsync(id);
+            var tg = await _dataContext.NhaXuatBans.FindAsync(id);
             if (tg == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -95,7 +95,7 @@ namespace Library.Controllers
 
             try
             {
-                _dataContext.TacGias.Remove(tg);
+                _dataContext.NhaXuatBans.Remove(tg);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
