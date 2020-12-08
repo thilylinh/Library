@@ -10,7 +10,7 @@ namespace Library.Models
     {
         [Key]
         public int MaMuonTra { get; set; }
-        public int MaSach { get; set; }
+        public string MaSach { get; set; }
         public string Ghichu { get; set; }
         public bool DaTra { get; set; }
         public DateTime NgayTra { get; set; }

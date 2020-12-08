@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Thông tin sách";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using Library.Models
+@model IEnumerable<Sach>
+
+<div class="col-md-12">
+    @Html.ActionLink("Thêm mới nhà xuất bản", "AddNew", "QuanLySach", null, new { @class = "btn btn-success" })
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">Nhà xuất bản</h4>
+            <p class="card-category"> Thông tin về tất cả nhà xuất bản của sách trong thư viện</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        Mã sách
+                    </th>
+                    <th>
+                        Tên sách
+                    </th>
+                    <th>
+                        Tác giả
+                    </th>
+                    <th>
+                        Thể loại
+                    </th>
+                    <th>
+                        Nhà xuất bản
+                    </th>
+                    <th>
+                        Năm xuất bản
+                    </th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td class="text-primary">
+                                    @Html.DisplayFor(m => i.MaSach)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => i.TenSach)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => i.TacGia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => i.TheLoai.TenTheLoai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => i.NhaXuatBan.Ten)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => i.NamXuatBan)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Sửa", "Edit", "QuanLySach", new { @id = i.MaSach }, new { @class = "btn btn-primary" })
+                                    @Html.ActionLink("Xóa", "Delete", "QuanLySach", new { @id = i.MaSach }, new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

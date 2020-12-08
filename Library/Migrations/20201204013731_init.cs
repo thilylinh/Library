@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Library.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,8 +85,7 @@ namespace Library.Migrations
                 name: "Saches",
                 columns: table => new
                 {
-                    MaSach = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaSach = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TenSach = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MatacGia = table.Column<int>(type: "int", nullable: false),
                     MaTheLoai = table.Column<int>(type: "int", nullable: false),
@@ -180,12 +179,12 @@ namespace Library.Migrations
                 {
                     MaMuonTra = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MaSach = table.Column<int>(type: "int", nullable: false),
+                    MaSach = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Ghichu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DaTra = table.Column<bool>(type: "bit", nullable: false),
                     NgayTra = table.Column<DateTime>(type: "datetime2", nullable: false),
                     MuonTraMa = table.Column<int>(type: "int", nullable: true),
-                    SachMaSach = table.Column<int>(type: "int", nullable: true)
+                    SachMaSach = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {

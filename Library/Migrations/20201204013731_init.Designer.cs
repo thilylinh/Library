@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201113034450_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201204013731_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace Library.Migrations
                     b.Property<string>("Ghichu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaSach")
-                        .HasColumnType("int");
+                    b.Property<string>("MaSach")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MuonTraMa")
                         .HasColumnType("int");
@@ -43,8 +43,8 @@ namespace Library.Migrations
                     b.Property<DateTime>("NgayTra")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SachMaSach")
-                        .HasColumnType("int");
+                    b.Property<string>("SachMaSach")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("MaMuonTra");
 
@@ -177,10 +177,8 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Sach", b =>
                 {
-                    b.Property<int>("MaSach")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                    b.Property<string>("MaSach")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MaNhaXuatBan")
                         .HasColumnType("int");
