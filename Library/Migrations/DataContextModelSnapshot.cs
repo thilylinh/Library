@@ -21,7 +21,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.ChiTietMuonTra", b =>
                 {
-                    b.Property<int>("MaMuonTra")
+                    b.Property<int>("MuonTraMa")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -32,23 +32,26 @@ namespace Library.Migrations
                     b.Property<string>("Ghichu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MaSach")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("MuonTraMa")
+                    b.Property<int>("MuonTraMa1")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayTra")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SachMaSach")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("SachID")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MaMuonTra");
+                    b.Property<int?>("SachID1")
+                        .HasColumnType("int");
 
-                    b.HasIndex("MuonTraMa");
+                    b.HasKey("MuonTraMa");
 
-                    b.HasIndex("SachMaSach");
+                    b.HasIndex("MuonTraMa1");
+
+                    b.HasIndex("SachID1");
 
                     b.ToTable("ChiTietMuonTras");
                 });
@@ -69,9 +72,6 @@ namespace Library.Migrations
                     b.Property<int>("MaSinhVien")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaThe")
-                        .HasColumnType("int");
-
                     b.Property<string>("MatKhau")
                         .HasColumnType("nvarchar(max)");
 
@@ -82,12 +82,7 @@ namespace Library.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TheThuVienMa")
-                        .HasColumnType("int");
-
                     b.HasKey("Ma");
-
-                    b.HasIndex("TheThuVienMa");
 
                     b.ToTable("DocGias");
                 });
@@ -99,50 +94,37 @@ namespace Library.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("MaNhanVien")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaThe")
+                    b.Property<int>("DocGiaMa")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayMuon")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("NhanVienMa")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TheThuVienMa")
+                    b.Property<int>("NhanVienMa")
                         .HasColumnType("int");
 
                     b.HasKey("Ma");
 
-                    b.HasIndex("NhanVienMa");
+                    b.HasIndex("DocGiaMa");
 
-                    b.HasIndex("TheThuVienMa");
+                    b.HasIndex("NhanVienMa");
 
                     b.ToTable("MuonTras");
                 });
 
-            modelBuilder.Entity("Library.Models.NhaXuatBan", b =>
+            modelBuilder.Entity("Library.Models.NganhHoc", b =>
                 {
-                    b.Property<int>("Ma")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("DiaChi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ten")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Ma");
+                    b.HasKey("ID");
 
-                    b.ToTable("NhaXuatBans");
+                    b.ToTable("NganhHocs");
                 });
 
             modelBuilder.Entity("Library.Models.NhanVien", b =>
@@ -175,164 +157,187 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.Sach", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
                     b.Property<string>("MaSach")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("MaNhaXuatBan")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaTheLoai")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatacGia")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NamXuatBan")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NhaXuatBanMa")
+                    b.Property<DateTime>("NgayNhapKho")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NhaXuatBan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SoLuong")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TacGiaMa")
-                        .HasColumnType("int");
+                    b.Property<string>("TacGia")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenSach")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TheLoaiMa")
-                        .HasColumnType("int");
+                    b.Property<string>("TheLoai")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("MaSach");
-
-                    b.HasIndex("NhaXuatBanMa");
-
-                    b.HasIndex("TacGiaMa");
-
-                    b.HasIndex("TheLoaiMa");
+                    b.HasKey("ID");
 
                     b.ToTable("Saches");
                 });
 
-            modelBuilder.Entity("Library.Models.TacGia", b =>
+            modelBuilder.Entity("Library.Models.SachHong", b =>
                 {
-                    b.Property<int>("Ma")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("GhiChu")
+                    b.Property<string>("LyDo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ten")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Ma");
-
-                    b.ToTable("TacGias");
-                });
-
-            modelBuilder.Entity("Library.Models.TheLoai", b =>
-                {
-                    b.Property<int>("Ma")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("TenTheLoai")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Ma");
-
-                    b.ToTable("TheLoais");
-                });
-
-            modelBuilder.Entity("Library.Models.TheThuVien", b =>
-                {
-                    b.Property<int>("Ma")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("NgayBatDau")
+                    b.Property<DateTime>("NgayBaoHong")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayHetHan")
+                    b.Property<int>("SachID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoLuongHong")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SachID")
+                        .IsUnique();
+
+                    b.ToTable("SachHongs");
+                });
+
+            modelBuilder.Entity("Library.Models.Sach_Nganh", b =>
+                {
+                    b.Property<int>("NganhID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SachID")
+                        .HasColumnType("int");
+
+                    b.HasKey("NganhID", "SachID");
+
+                    b.HasIndex("SachID");
+
+                    b.ToTable("Sach_Nganhs");
+                });
+
+            modelBuilder.Entity("Library.Models.ThongBao", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("NgayThongBao")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Ma");
+                    b.Property<int>("NhanVienMa")
+                        .HasColumnType("int");
 
-                    b.ToTable("TheThuViens");
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("NhanVienMa");
+
+                    b.ToTable("ThongBaos");
                 });
 
             modelBuilder.Entity("Library.Models.ChiTietMuonTra", b =>
                 {
                     b.HasOne("Library.Models.MuonTra", "MuonTra")
                         .WithMany()
-                        .HasForeignKey("MuonTraMa");
+                        .HasForeignKey("MuonTraMa1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Library.Models.Sach", "Sach")
                         .WithMany("ChiTietMuonTras")
-                        .HasForeignKey("SachMaSach");
+                        .HasForeignKey("SachID1");
 
                     b.Navigation("MuonTra");
 
                     b.Navigation("Sach");
                 });
 
-            modelBuilder.Entity("Library.Models.DocGia", b =>
-                {
-                    b.HasOne("Library.Models.TheThuVien", "TheThuVien")
-                        .WithMany()
-                        .HasForeignKey("TheThuVienMa");
-
-                    b.Navigation("TheThuVien");
-                });
-
             modelBuilder.Entity("Library.Models.MuonTra", b =>
                 {
+                    b.HasOne("Library.Models.DocGia", "DocGia")
+                        .WithMany()
+                        .HasForeignKey("DocGiaMa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Library.Models.NhanVien", "NhanVien")
                         .WithMany("MuonTras")
-                        .HasForeignKey("NhanVienMa");
+                        .HasForeignKey("NhanVienMa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Library.Models.TheThuVien", "TheThuVien")
-                        .WithMany()
-                        .HasForeignKey("TheThuVienMa");
+                    b.Navigation("DocGia");
 
                     b.Navigation("NhanVien");
-
-                    b.Navigation("TheThuVien");
                 });
 
-            modelBuilder.Entity("Library.Models.Sach", b =>
+            modelBuilder.Entity("Library.Models.SachHong", b =>
                 {
-                    b.HasOne("Library.Models.NhaXuatBan", "NhaXuatBan")
-                        .WithMany("Saches")
-                        .HasForeignKey("NhaXuatBanMa");
+                    b.HasOne("Library.Models.Sach", "Sach")
+                        .WithOne("SachHong")
+                        .HasForeignKey("Library.Models.SachHong", "SachID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Library.Models.TacGia", "TacGia")
-                        .WithMany("Saches")
-                        .HasForeignKey("TacGiaMa");
-
-                    b.HasOne("Library.Models.TheLoai", "TheLoai")
-                        .WithMany("Saches")
-                        .HasForeignKey("TheLoaiMa");
-
-                    b.Navigation("NhaXuatBan");
-
-                    b.Navigation("TacGia");
-
-                    b.Navigation("TheLoai");
+                    b.Navigation("Sach");
                 });
 
-            modelBuilder.Entity("Library.Models.NhaXuatBan", b =>
+            modelBuilder.Entity("Library.Models.Sach_Nganh", b =>
                 {
-                    b.Navigation("Saches");
+                    b.HasOne("Library.Models.NganhHoc", "Nganh")
+                        .WithMany("Sach_Nganhs")
+                        .HasForeignKey("NganhID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Library.Models.Sach", "Sach")
+                        .WithMany("Sach_Nganhs")
+                        .HasForeignKey("SachID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nganh");
+
+                    b.Navigation("Sach");
+                });
+
+            modelBuilder.Entity("Library.Models.ThongBao", b =>
+                {
+                    b.HasOne("Library.Models.NhanVien", "NhanVien")
+                        .WithMany()
+                        .HasForeignKey("NhanVienMa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NhanVien");
+                });
+
+            modelBuilder.Entity("Library.Models.NganhHoc", b =>
+                {
+                    b.Navigation("Sach_Nganhs");
                 });
 
             modelBuilder.Entity("Library.Models.NhanVien", b =>
@@ -343,16 +348,10 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.Models.Sach", b =>
                 {
                     b.Navigation("ChiTietMuonTras");
-                });
 
-            modelBuilder.Entity("Library.Models.TacGia", b =>
-                {
-                    b.Navigation("Saches");
-                });
+                    b.Navigation("Sach_Nganhs");
 
-            modelBuilder.Entity("Library.Models.TheLoai", b =>
-                {
-                    b.Navigation("Saches");
+                    b.Navigation("SachHong");
                 });
 #pragma warning restore 612, 618
         }

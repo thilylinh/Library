@@ -1,0 +1,52 @@
+﻿@using Library.Models;
+@model IEnumerable<ThongBao>
+@{
+    ViewData["Title"] = "Thông báo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-md-12">
+    @Html.ActionLink("Đăng thông báo mới", "AddNew", "ThongBaoTinTuc", null, new { @class = "btn btn-success" })
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">Nhà xuất bản</h4>
+            <p class="card-category"> Thông tin về tất cả nhà xuất bản của sách trong thư viện</p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <th>
+                        NỘi dung thông báo
+                    </th>
+                    <th>
+                        Người đăng
+                    </th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                        <tr>
+                            <td class="text-primary">
+                                @Html.DisplayFor(m => i.NoiDung)
+                            </td>
+                            <td class="text-primary">
+                                @Html.DisplayFor(m => i.NhanVien.Ten)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", "ThongBaoTintuc", new { @id = i.ID }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "Delete", "ThongBaoTintuc", new { @id = i.ID }, new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Chi tiết", "Details", "ThongBaoTintuc", new { @id = i.ID }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

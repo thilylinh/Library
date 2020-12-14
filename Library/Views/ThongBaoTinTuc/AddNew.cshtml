@@ -1,0 +1,23 @@
+﻿@using Library.Models
+@model ThongBao
+@{
+    ViewData["Title"] = "Đăng thông báo mới";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<<h5 class="text-center">Đăng thông báo mới</h5>
+<hr />
+<div class="container">
+    <form asp-action="AddNew" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="NoiDung" class="form-control" />
+            <span asp-validation-for="NoiDung" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Lưu" class="btn btn-primary" />
+            @Html.ActionLink("Quay về", "Index", "ThongBaoTinTuc", null, new { @class = "btn btn-secondary" })
+        </div>
+    </form>
+</div>
+
+
